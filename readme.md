@@ -3,9 +3,7 @@
 Wanna Goto the Cinema With your Friends? Now you Can! Mycroft's Cinemas adds Native, fully synchronised, Cinemas to the city of Los Santos!
 
 ## Preview
-
-<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/woxpwq" frameborder="0" width="70%" height="50%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
-
+[![](https://cdn.discordapp.com/attachments/836342197565521960/1062502570691670107/image.png)](https://streamable.com/e/woxpwq)
 ## Notice
 
 Copyright © 2023 Mycroft (Kasey Fitton)
