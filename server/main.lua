@@ -24,12 +24,22 @@ SOFTWARE.
 ESX.RegisterServerCallback("cinema:buyTicket", function(src, cb, cinema)
     local xPlayer = ESX.GetPlayerFromId(src)
     local cin = Config.Cinemas[cinema]
-    if xPlayer.getMoney() >= cin.price then
-        xPlayer.removeMoney(cin.price)
+    if Config.Bank then
+      if xPlayer.getAccount("bank").money >= cin.price then
+        xPlayer.removeAccountMoney('bank', cin.price)
         SetPlayerRoutingBucket(src, cin.bucket)
         cb(true)
-    else 
+      else 
         cb(false)
+      end
+    else
+        if xPlayer.getMoney() >= cin.price then
+            xPlayer.removeMoney(cin.price)
+            SetPlayerRoutingBucket(src, cin.bucket)
+            cb(true)
+        else 
+            cb(false)
+        end
     end
 end)
 

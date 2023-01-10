@@ -21,8 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ]]
-local Camera = nil
-local NearCinema = nil
+local Camera, NearCinema = nil, nil
 local InCinema = false
 local CameraFOV = 45.5763
 
@@ -234,9 +233,9 @@ function Interact(k)
     end
     
     ESX.TriggerServerCallback("cinema:buyTicket", function(bought)
-        print(bought)
+        -- print(bought)
         if bought then
-            print(1)
+            -- print(1)
             EnterCinema(k) -- Enter the Cinema
         else 
             ESX.ShowNotification("You Cannot Afford this!","error") -- tell them they cannot

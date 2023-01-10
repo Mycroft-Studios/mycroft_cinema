@@ -1,5 +1,7 @@
 Config = {}
 
+Config.Bank = false -- Change to true for cash
+
 Config.Cinemas = {
     ["Vinewood"] = {
         coords = vector3(301.3435, 201.8168, 104.3755),
