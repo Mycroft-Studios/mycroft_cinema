@@ -1,6 +1,6 @@
 <h1 align='center'>[ESX] Mycroft's Cinemas</a></h1><p align='center'><b>GTA:Online Cinema Remake</b></h5>
 
-Wanna Goto the Cinema With your Friends? Now you Can! Mycroft's Cinemas adds Native, fully synchronised, Cinemas to the city of Los Santos!
+Wanna Watch some movies with your friends, but worried about **copyrighted** videos? No worrys! With this script, you can head on over to **any Cinema** across Los-Santos and watch the watch any of the **built in GTA Movies** and enjoy a fully **synchronised** experience with your friends !
 
 ## Preview
 [![](https://cdn.discordapp.com/attachments/836342197565521960/1062502570691670107/image.png)](https://streamable.com/e/woxpwq)
