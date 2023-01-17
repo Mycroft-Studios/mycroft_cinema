@@ -1,14 +1,14 @@
 fx_version 'cerulean'
 game 'gta5'
 
-name "Mycroft's Cinema"
-description "GTA:Online Cinema Remade"
+name "OnlineM Cinema"
+description "GTA:Online Cinema Remastered"
 author "Mycroft"
 lua54 'yes'
 version "1.0.0"
 
 shared_scripts {
-	'@es_extended/imports.lua',
+	'@ox_lib/init.lua',
 	'shared/*.lua'
 }
 

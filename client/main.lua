@@ -24,6 +24,7 @@ SOFTWARE.
 local Camera, NearCinema = nil, nil
 local InCinema = false
 local CameraFOV = 45.5763
+local Object = Config.Framework.Client.getObject()
 
 function InstructionButtonMessage(text)
     BeginTextCommandScaleformString("STRING")
@@ -137,14 +138,14 @@ function CreateTV()
             end
             -- Has Cinema Closed
             if currTime > Cinema.showings[#Cinema.showings].time and currTime >= Cinema.CloseTime then
-                ESX.ShowNotification("Cinema Is Now Closed!", "error")
+                Config.Framework.Client.showNotification(Object, "Cinema Is Now Closed!", "error")
                 Wait(2000)
                 ExecuteCommand("cinema:leave")
             end
             -- Has Current Show Finished
             local showa = GetCurrentShowing(Cinema.showings)
             if showa.name ~= show.name then
-                ESX.ShowNotification("Movie Has Ended!", "info")
+                Config.Framework.Client.showNotification(Object, "Movie Has Ended!", "info")
                 Wait(2000)
                 ExecuteCommand("cinema:leave")
             end
@@ -173,7 +174,8 @@ function GetCurrentShowing(Showings)
 end
 
 -- Register Leave Key as Backspace
-ESX.RegisterInput("cinema:leave", "[Cinema] Leave", "keyboard", "BACK", function()
+
+Config.Framework.Client.RegisterInput(Object, "cinema:leave", "[Cinema] Leave", "keyboard", "BACK", function()
     if not InCinema then return end
     local PlayerPed = PlayerPedId()
     local Cinema = Config.Cinemas[InCinema]
@@ -193,7 +195,7 @@ ESX.RegisterInput("cinema:leave", "[Cinema] Leave", "keyboard", "BACK", function
 end)
 
 -- Register Leave Key as Backspace
-ESX.RegisterInput("cinema:enter", "[Cinema] Enter", "keyboard", "e", function()
+Config.Framework.Client.RegisterInput(Object, "cinema:enter", "[Cinema] Enter", "keyboard", "e", function()
     if InCinema then return end
     if not NearCinema then return end
     Interact(NearCinema)
@@ -223,27 +225,19 @@ function Interact(k)
     local currTime = GetClockHours() -- gets in game hours
     -- Check if the cinema is open
     if currTime < v.showings[1].time or currTime > v.CloseTime then
-        ESX.ShowNotification("This Cinema is currently Closed!", "error")
+        Config.Framework.Client.showNotification(Object, "This Cinema is currently Closed!", "error")
         return
     end
 
     if currTime > v.showings[#v.showings].time and currTime >= v.CloseTime then
-        ESX.ShowNotification("This Cinema is currently Closed!", "error")
+        Config.Framework.Client.showNotification(Object, "This Cinema is currently Closed!", "error")
         return
     end
-    
-    ESX.TriggerServerCallback("cinema:buyTicket", function(bought)
-        -- print(bought)
-        if bought then
-            -- print(1)
-            EnterCinema(k) -- Enter the Cinema
-        else 
-            ESX.ShowNotification("You Cannot Afford this!","error") -- tell them they cannot
-        end
-    end, k)
+    Config.Framework.Client.BuyTicketCallback(Object, k)
 end
 CreateThread(function()
-    while not ESX.PlayerLoaded do
+    local ped = PlayerPedId()
+    while not DoesEntityExist(ped) do 
         Wait(0)
     end
         for k,v in pairs(Config.Cinemas) do
@@ -252,7 +246,7 @@ CreateThread(function()
                 sprite = 135,
                 colour = 61,
                 size = 0.7,
-                text = k .. " Cinema"
+                text = "Cinema"
             }
 
             local blip = AddBlipForCoord(v.coords)
@@ -283,7 +277,7 @@ CreateThread(function()
         local Drawing = false
         while true do
             local Near = false
-            local Pcoords = GetEntityCoords(ESX.PlayerData.ped)
+            local Pcoords = GetEntityCoords(PlayerPedId())
             for k,v in pairs(Config.Cinemas) do
                 local Dist = #(Pcoords - v.coords)
                 if Dist <= 5.0 then
@@ -291,12 +285,12 @@ CreateThread(function()
                     NearCinema = k
                     if not Drawing then
                         Drawing = true
-                       ESX.TextUI("[E] Watch A Movie - $".. v.price ..".", "info")
+                       Config.Framework.Client.ShowTextUI(Object, "[E] Watch A Movie - $".. v.price ..".")
                     end
                 end
             end
             if not Near and Drawing then
-                ESX.HideUI()
+                Config.Framework.Client.HideTextUI(Object)
                 NearCinema = nil
                 Drawing = false
             end
